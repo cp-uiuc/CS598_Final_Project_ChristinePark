@@ -14,7 +14,6 @@ Step | Script / Rule | Description
 3 | compute_zone_coordinates.py | Extracts NYC borough coordinates
 4 | transform_rides_data.py | Cleans and aggregates rides by borough and hour
 5 | combine_rides_weather.py | Joins aggregated rides with hourly weather
-6 | write_meta.py | Generates provenance and metadata sidecars
 
 ## Directory Layout
 ```
