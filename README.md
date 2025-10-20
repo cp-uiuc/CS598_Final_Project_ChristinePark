@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project builds a reproducible workflow to integrate 2023 NYC for-hire vehicle (FHVHV) trip data with Open-Meteo hourly weather data.
+This project builds a reproducible workflow to integrate 2023 NYC for-hire vehicle (FHVHV) trip data with Open-Meteo hourlyweather data.
 The pipeline uses Snakemake for workflow management and Polars for scalable data transformation.
 Outputs include borough-hour–level ride aggregates joined with hourly weather variables.
 
@@ -15,14 +15,25 @@ Step | Script / Rule | Description
 4 | transform_rides_data.py | Cleans and aggregates rides by borough and hour
 5 | combine_rides_weather.py | Joins aggregated rides with hourly weather
 
-## Directory Layout
+## Project Structure
 ```
-data/
-├── in/               # Raw data (e.g., ride parquet files, taxi_zones.zip)
-├── tmp/              # Intermediate results (zones lookup, weather, transformed data)
-└── out/              # Final combined datasets
+CS598_Final_Project_ChristinePark/
+├── Snakefile
+├── config.yaml
+├── pyproject.toml
+├── scripts/
+│   ├── fetch_ride_data.py
+│   ├── compute_zone_coordinates.py
+│   ├── make_zones_lookup.py
+│   ├── transform_rides_data.py
+│   ├── fetch_weather_data.py
+│   └── combine_rides_weather.py
+├── data/
+│   ├── in/         # Raw inputs (downloaded data)
+│   ├── tmp/        # Intermediate transformations
+│   └── out/        # Final outputs
+└── README.md
 
-scripts/              # All processing scripts
 ```
 
 ## Environment Setup
@@ -84,4 +95,8 @@ All paths and URLs are defined in config.yaml
 * Environment and Snakemake workflow established
 * Ride and weather data ingestion complete
 * Transformation and aggregation implemented
-* Next: add metadata and provenance tracking to document data lineage and reproducibility
+
+## Next Steps
+* Add metadata files describing dataset sources, structure, and variables.
+* Record data provenance to trace how each output was created.
+* Verify data consistency and validate final results.
