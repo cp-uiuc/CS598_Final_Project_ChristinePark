@@ -1,0 +1,18 @@
+# Taxi zones
+zones_url: "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zones.zip"
+zones_zip_path: "data/in/zones/taxi_zones.zip"
+coordinates_path: "data/tmp/borough_coordinates.csv"
+zones_lookup: "data/tmp/zones_lookup.csv"
+
+# Ride Data
+ride_data_path: "data/in/rides"
+SUCCESS: os.path.join(ride_data_path, "_SUCCESS")
+
+transformed_ride_data_path: "data/tmp/rides_transformed.parquet"
+
+weather_path: "data/in/weather/hourly_weather_2023.parquet"
+
+final_csv: "data/out/rides_weather_2023.csv"
+
+
+

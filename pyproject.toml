@@ -1,0 +1,21 @@
+[project]
+name = "weather-ride-nyc"
+version = "0.1.0"
+description = "Curated dataset linking New York City ride-hail demand with 2023 weather conditions. Integrates hourly trip records and meteorological data to enable analysis of how rain, snow, temperature, and wind affect rideshare activity and mobility patterns."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "certifi>=2025.10.5",
+    "fiona>=1.10.1",
+    "geopandas>=1.1.1",
+    "numpy>=2.3.3",
+    "openmeteo-requests>=1.7.3",
+    "polars>=1.34.0",
+    "pyproj>=3.7.2",
+    "requests>=2.32.5",
+    "requests-cache>=1.2.1",
+    "retry-requests>=2.0.0",
+    "shapely>=2.1.2",
+    "snakemake>=9.13.2",
+    "sodapy>=2.2.0",
+]
