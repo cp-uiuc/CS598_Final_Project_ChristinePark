@@ -28,13 +28,16 @@ CS598_Final_Project_ChristinePark/
 │   ├── transform_rides_data.py
 │   ├── fetch_weather_data.py
 │   └── combine_rides_weather.py
-├── data/
+├── data/           # Not included in repo due to size limits
 │   ├── in/         # Raw inputs (downloaded data)
 │   ├── tmp/        # Intermediate transformations
 │   └── out/        # Final outputs
 └── README.md
 
 ```
+
+⚠️ **Important Note:**
+The `data/` directory is not included in this repository because the generated files are too large for GitHub. All input, intermediate, and final data outputs are stored in **[Box](https://uofi.box.com/s/2oommk4mla932lrpy89h6rmts1k06zq3)** for validation and comparison. When you run the pipeline locally, these files will be automatically generated in the `data/` directory.
 
 ## Environment Setup
 
