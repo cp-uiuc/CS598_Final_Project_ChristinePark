@@ -10,7 +10,7 @@ Outputs include borough-hour–level ride aggregates joined with hourly weather 
 Step | Snakemake Rule | Script | Description | Primary Data Artifact(s)
 --- | --- | --- | --- | ---
 1 | `fetch_zones_zip` | `fetch_zones_zip.py` | Downloads taxi zone zip file | `data/in/zones/taxi_zones.zip`
-2 | `make_zones_lookup` | `make_zones_lookup.py` | `make_zones_lookup.py` maps taxi zone `LocationIDs` to boroughs.
+2 | `make_zones_lookup` | `make_zones_lookup.py` | Maps taxi zone `LocationIDs` to boroughs. | `data/tmp/zones_lookup.csv`
 3 | `transform_zones` | `compute_zone_coordinates.py` | Extracts NYC borough coordinates | `data/tmp/borough_coordinates.csv`
 4 | `fetch_ride_data` | `fetch_ride_data.py` | Downloads monthly 2023 FHVHV Parquet files | `data/in/rides/*.parquet`
 5 | `transform_rides` | `transform_rides_data.py` | Cleans and aggregates rides by borough and hour | `data/tmp/rides_transformed.parquet`
@@ -71,9 +71,8 @@ This installs all dependencies from pyproject.toml into .venv.
 * Python ≥ 3.12
 * Snakemake ≥ 8
 * Polars
-* Requests
+* Geopandas
 * Open-Meteo-Requests
-* Requests-Cache
 
 
 ## Running the Pipeline

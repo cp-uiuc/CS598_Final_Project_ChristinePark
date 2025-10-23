@@ -1,5 +1,5 @@
 [project]
-name = "weather-ride-nyc"
+name = "nyc-fhvhv-weather-integration-pipeline"
 version = "0.1.0"
 description = "Curated dataset linking New York City ride-hail demand with 2023 weather conditions. Integrates hourly trip records and meteorological data to enable analysis of how rain, snow, temperature, and wind affect rideshare activity and mobility patterns."
 readme = "README.md"
