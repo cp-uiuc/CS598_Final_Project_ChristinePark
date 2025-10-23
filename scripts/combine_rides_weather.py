@@ -3,21 +3,21 @@ import sys, polars as pl
 agg_parquet, weather_parquet, out_csv = sys.argv[1], sys.argv[2], sys.argv[3]
 
 agg = pl.scan_parquet(agg_parquet).with_columns(
-    pl.col("hour_start").cast(pl.Datetime)
+    pl.col("timestamp_hour").cast(pl.Datetime)
 )
 wx = pl.scan_parquet(weather_parquet).with_columns(
-    pl.col("hour_start").cast(pl.Datetime)
+    pl.col("timestamp_hour").cast(pl.Datetime)
 )
 
 final = (
     agg
-    .join(wx, on=["borough", "hour_start"], how="left")
+    .join(wx, on=["borough", "timestamp_hour"], how="left")
     .select(
         "borough",
         "date",
-        "hour_start",
-        "rides",
-        pl.all().exclude(["borough","date","hour_start","rides"])  # weather cols
+        "timestamp_hour",
+        "ride_count",
+        pl.all().exclude(["borough","date","timestamp_hour","ride_count"])  # weather cols
     )
     .collect(engine="streaming")
 )

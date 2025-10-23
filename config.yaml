@@ -12,7 +12,7 @@ transformed_ride_data_path: "data/tmp/rides_transformed.parquet"
 
 weather_path: "data/in/weather/hourly_weather_2023.parquet"
 
-final_csv: "data/out/rides_weather_2023.csv"
+final_csv: "data/out/citywide_hourly_2023.csv"
 
 
 

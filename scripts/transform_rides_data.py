@@ -41,12 +41,12 @@ def main(in_dir: str, zones_lookup: str, out_path: str):
         rides
         .join(zones.lazy(), left_on="PULocationID", right_on="LocationID", how="inner")
         .with_columns([
-            (pl.col("request_datetime").dt.truncate("1h")).alias("hour_start"),
+            (pl.col("request_datetime").dt.truncate("1h")).alias("timestamp_hour"),
             (pl.col("request_datetime").dt.date().alias("date")),
         ])
-        .group_by(["borough", "date", "hour_start"])
-        .agg(pl.len().alias("rides"))
-        .sort(["borough", "date", "hour_start"])
+        .group_by(["borough", "date", "timestamp_hour"])
+        .agg(pl.len().alias("ride_count"))
+        .sort(["borough", "date", "timestamp_hour"])
     )
 
     count = agg_rides_with_boroughs.collect().height

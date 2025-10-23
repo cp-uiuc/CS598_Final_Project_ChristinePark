@@ -34,14 +34,9 @@ rule fetch_zones_zip:
     params: url=ZONES_URL
     shell: r"""
         mkdir -p $(dirname {output})
-        python - <<'PY'
-import requests
-r = requests.get("{params.url}"); r.raise_for_status()
-open("{output}","wb").write(r.content)
-PY
+        python scripts/fetch_zones_zip.py {params.url} {output}
     """
 
-# --- Transform ZIP → LocationID→borough lookup ---
 rule make_zones_lookup:
     input: ZONES_ZIP_PATH
     output: ZONES_LOOKUP

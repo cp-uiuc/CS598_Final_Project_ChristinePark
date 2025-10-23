@@ -6,7 +6,7 @@ API = "https://archive-api.open-meteo.com/v1/archive"
 TZ  = "America/New_York"
 START = "2023-01-01"
 END   = "2023-12-31"
-HOURLY = ["temperature_2m","precipitation","wind_speed_10m","relative_humidity_2m"]
+HOURLY = ["temperature_2m","precipitation", "snowfall", "rain", "wind_speed_10m"]
 
 def fetch_hourly_pl(lat: float, lon: float) -> pl.DataFrame:
     cache = requests_cache.CachedSession(".cache", expire_after=-1)
@@ -31,10 +31,10 @@ def fetch_hourly_pl(lat: float, lon: float) -> pl.DataFrame:
         pl.from_epoch(secs)
         .dt.replace_time_zone("UTC")
         .dt.convert_time_zone(TZ)
-        .alias("hour_start")
+        .alias("timestamp_hour")
     )
 
-    cols = {"hour_start": times}
+    cols = {"timestamp_hour": times}
     for i, name in enumerate(HOURLY):
         cols[name] = pl.Series(name, h.Variables(i).ValuesAsNumpy())
 
@@ -46,7 +46,7 @@ def main(centroids_csv: str, out_parquet: str):
     for borough, lon, lat in cents.iter_rows():
         df = fetch_hourly_pl(lat=float(lat), lon=float(lon))
         frames.append(df.with_columns(pl.lit(borough).alias("borough")))
-    weather = pl.concat(frames).select("borough","hour_start", *HOURLY).sort(["borough","hour_start"])
+    weather = pl.concat(frames).select("borough","timestamp_hour", *HOURLY).sort(["borough","timestamp_hour"])
     pl.Config.set_tbl_rows(10)  # quick preview on run
     print(weather.head(10))
     weather.write_parquet(out_parquet)
