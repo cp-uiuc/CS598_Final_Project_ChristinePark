@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project builds a reproducible workflow to integrate 2023 NYC for-hire vehicle (FHVHV) trip data with Open-Meteo hourlyweather data.
+This project builds a reproducible workflow to integrate 2023 NYC for-hire vehicle (FHVHV) trip data with Open-Meteo hourly weather data.
 The pipeline uses Snakemake for workflow management and Polars for scalable data transformation.
 Outputs include borough-hour–level ride aggregates joined with hourly weather variables.
 
