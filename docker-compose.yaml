@@ -1,6 +1,6 @@
 services:
   pipeline:
-    image: cp60uiuc/nyc-fhvhv-weather-integration-pipeline:sha256:f75d871c95acbe573f3e2b24d60c39bc4e08d446568c8457c076a30f1ddb042b
+    image: cp60uiuc/nyc-fhvhv-weather-integration-pipeline@sha256:f75d871c95acbe573f3e2b24d60c39bc4e08d446568c8457c076a30f1ddb042b
     working_dir: /app
     volumes:
       - ${DATA_DIR:-./data}:/app/data
