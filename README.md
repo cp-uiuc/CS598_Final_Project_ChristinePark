@@ -17,29 +17,6 @@ Step | Snakemake Rule | Script | Description | Primary Data Artifact(s)
 6 | `fetch_weather_data` | `fetch_weather_data.py` | Retrieves hourly weather for each borough | `data/in/hourly_weather_2023.parquet`
 7 | `combine_rides_weather` | `combine_rides_weather.py` | Joins aggregated rides with hourly weather | `data/out/citywide_hourly_2023.csv`
 
-## Workflow Visualization
-
-Snakemake can generate two useful workflow graphs.  
-Both require **Graphviz** (`dot`) to be installed.
-
-### Rule Graph
-Shows how rules depend on each other (no file- or wildcard-level detail):
-
-```bash
-snakemake --rulegraph | dot -Tpng > provenance/rules.png
-```
-
-![rules.png](provenance/rules.png)
-
-### Workflow DAG
-Shows the fully expanded job-level DAG for the current run:
-
-```bash
-snakemake --rulegraph | dot -Tpng > provenance/dag.png
-```
-![dag.png](provenance/dag.png)
-
-After running these commands, the images `rules.png` and `dag.png` will be created in the `/provenance` directory.
 
 ## Project Structure
 ```
@@ -58,6 +35,9 @@ CS598_Final_Project_ChristinePark/
 │   ├── in/         # Raw inputs (downloaded data)
 │   ├── tmp/        # Intermediate transformations
 │   └── out/        # Final outputs
+├── provenance/
+│   ├── dag.png     # Example DAG graph for reference
+│   ├── rules.png   # Example rules graph for reference
 └── README.md
 
 ```
@@ -93,11 +73,12 @@ Outputs will appear under:
 ```
 
 #### Example: Use a custom data directory
-Relative path (recommended)
+**Relative path (recommended):**
 ```bash
 DATA_DIR=./custom_directory docker compose run pipeline
 ```
-Absolute paths (supported if Docker has access)
+
+**Absolute paths (supported if Docker has access):**
 ```bash
 DATA_DIR=/valid/absolute/directory docker compose run pipeline
 ```
@@ -133,6 +114,30 @@ sha256:f75d871c95acbe573f3e2b24d60c39bc4e08d446568c8457c076a30f1ddb042b
 
 The digest uniquely identifies the exact image used to run the workflow.
 The `docker-compose.yaml` configuration references this published image so all users run the pipeline in the same environment.
+
+## Workflow Visualizations
+
+Snakemake can generate workflow graphs by piping DOT output through Graphviz (`dot`).
+These commands run Snakemake inside Docker but write the resulting images to your **host** filesystem.
+
+**Make sure the directory you write the file into already exists.**
+
+You may choose any output path (e.g., `provenance/`, `figures/`, `.`), but the directory must exist first.
+
+**For convenience, this repository includes example images in the provenance/ folder as a reference.**
+
+### Rule Graph
+```bash
+docker compose run pipeline --rulegraph | dot -Tpng > path/to/output/rules.png
+```
+
+![rules.png](provenance/rules.png)
+
+### Workflow DAG
+```bash
+docker compose run pipeline --dag | dot -Tpng > path/to/output/dag.png
+```
+![dag.png](provenance/dag.png)
 
 
 ## (Optional) Local Development Environment
