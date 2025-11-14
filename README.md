@@ -17,6 +17,30 @@ Step | Snakemake Rule | Script | Description | Primary Data Artifact(s)
 6 | `fetch_weather_data` | `fetch_weather_data.py` | Retrieves hourly weather for each borough | `data/in/hourly_weather_2023.parquet`
 7 | `combine_rides_weather` | `combine_rides_weather.py` | Joins aggregated rides with hourly weather | `data/out/citywide_hourly_2023.csv`
 
+## Workflow Visualization
+
+Snakemake can generate two useful workflow graphs.  
+Both require **Graphviz** (`dot`) to be installed.
+
+### Rule Graph
+Shows how rules depend on each other (no file- or wildcard-level detail):
+
+```bash
+snakemake --rulegraph | dot -Tpng > provenance/rules.png
+```
+
+![rules.png](provenance/rules.png)
+
+### Workflow DAG
+Shows the fully expanded job-level DAG for the current run:
+
+```bash
+snakemake --rulegraph | dot -Tpng > provenance/dag.png
+```
+![dag.png](provenance/dag.png)
+
+After running these commands, the images `rules.png` and `dag.png` will be created in the current directory.
+
 ## Project Structure
 ```
 CS598_Final_Project_ChristinePark/
