@@ -39,7 +39,7 @@ snakemake --rulegraph | dot -Tpng > provenance/dag.png
 ```
 ![dag.png](provenance/dag.png)
 
-After running these commands, the images `rules.png` and `dag.png` will be created in the current directory.
+After running these commands, the images `rules.png` and `dag.png` will be created in the `/provenance` directory.
 
 ## Project Structure
 ```
