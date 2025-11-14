@@ -582,6 +582,43 @@ wheels = [
 ]
 
 [[package]]
+name = "nyc-fhvhv-weather-integration-pipeline"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "certifi" },
+    { name = "fiona" },
+    { name = "geopandas" },
+    { name = "numpy" },
+    { name = "openmeteo-requests" },
+    { name = "polars" },
+    { name = "pyproj" },
+    { name = "requests" },
+    { name = "requests-cache" },
+    { name = "retry-requests" },
+    { name = "shapely" },
+    { name = "snakemake" },
+    { name = "sodapy" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "certifi", specifier = ">=2025.10.5" },
+    { name = "fiona", specifier = ">=1.10.1" },
+    { name = "geopandas", specifier = ">=1.1.1" },
+    { name = "numpy", specifier = ">=2.3.3" },
+    { name = "openmeteo-requests", specifier = ">=1.7.3" },
+    { name = "polars", specifier = ">=1.34.0" },
+    { name = "pyproj", specifier = ">=3.7.2" },
+    { name = "requests", specifier = ">=2.32.5" },
+    { name = "requests-cache", specifier = ">=1.2.1" },
+    { name = "retry-requests", specifier = ">=2.0.0" },
+    { name = "shapely", specifier = ">=2.1.2" },
+    { name = "snakemake", specifier = ">=9.13.2" },
+    { name = "sodapy", specifier = ">=2.2.0" },
+]
+
+[[package]]
 name = "openmeteo-requests"
 version = "1.7.3"
 source = { registry = "https://pypi.org/simple" }
@@ -1398,43 +1435,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e1/1c/47fa7d26f64b952aaa90e9b0256e6db86a81f33241c1742558766d547c80/wassima-2.0.2.tar.gz", hash = "sha256:45de4ddf2a99e9277cc33616b3b34eee7dfcaaf5059b6e8c19ca62a6c5a65fbf", size = 150476, upload-time = "2025-10-05T05:27:26.593Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ff/db/e73493de23e9ac182997e14f3f0ff694a42f5696268668691665e7d1405c/wassima-2.0.2-py3-none-any.whl", hash = "sha256:54396882c0a210e404bb11740d47d66a35a6d68dde073a381c57d6e112cc245a", size = 145807, upload-time = "2025-10-05T05:27:25.041Z" },
-]
-
-[[package]]
-name = "weather-ride-nyc"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "certifi" },
-    { name = "fiona" },
-    { name = "geopandas" },
-    { name = "numpy" },
-    { name = "openmeteo-requests" },
-    { name = "polars" },
-    { name = "pyproj" },
-    { name = "requests" },
-    { name = "requests-cache" },
-    { name = "retry-requests" },
-    { name = "shapely" },
-    { name = "snakemake" },
-    { name = "sodapy" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "certifi", specifier = ">=2025.10.5" },
-    { name = "fiona", specifier = ">=1.10.1" },
-    { name = "geopandas", specifier = ">=1.1.1" },
-    { name = "numpy", specifier = ">=2.3.3" },
-    { name = "openmeteo-requests", specifier = ">=1.7.3" },
-    { name = "polars", specifier = ">=1.34.0" },
-    { name = "pyproj", specifier = ">=3.7.2" },
-    { name = "requests", specifier = ">=2.32.5" },
-    { name = "requests-cache", specifier = ">=1.2.1" },
-    { name = "retry-requests", specifier = ">=2.0.0" },
-    { name = "shapely", specifier = ">=2.1.2" },
-    { name = "snakemake", specifier = ">=9.13.2" },
-    { name = "sodapy", specifier = ">=2.2.0" },
 ]
 
 [[package]]

@@ -1,0 +1,8 @@
+.git
+.gitignore
+.python-version
+.venv
+data/
+provenance/
+.cache.sqlite
+.snakemake

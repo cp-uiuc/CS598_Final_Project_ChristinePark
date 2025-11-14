@@ -65,7 +65,77 @@ CS598_Final_Project_ChristinePark/
 ⚠️ **Important Note:**
 The `data/` directory is not included in this repository because the generated files are too large for GitHub. All input, intermediate, and final data outputs are stored in **[Box](https://uofi.box.com/s/2oommk4mla932lrpy89h6rmts1k06zq3)** for validation and comparison. When you run the pipeline locally, these files will be automatically generated in the `data/` directory.
 
-## Environment Setup
+
+## Running the Pipline with Docker Compose
+This project provides a prebuilt Docker image on Docker Hub to ensure reproducibility and provenance across all environments. The included `docker-compose.yaml` runs the workflow using this published image and mounts a host data directory into the container so that all inputs, intermediates, and outputs persist on your machine.
+
+The data directory can be customized at runtime using an environment variable.
+
+### Data Directory Selection (Dynamic)
+The Compose configuration uses:
+```yaml
+volumns:
+    - ${DATA_DIR:-./data}:/app/data
+```
+
+This means:
+* If `DATA_DIR` is set -> that path is used
+* If not set -> the default `./data` is used
+
+#### Example: Use the default ./data directory
+```bash
+docker compose run pipeline
+```
+
+Outputs will appear under:
+```bash
+./data/
+```
+
+#### Example: Use a custom data directory
+Relative path (recommended)
+```bash
+DATA_DIR=./custom_directory docker compose run pipeline
+```
+Absolute paths (supported if Docker has access)
+```bash
+DATA_DIR=/valid/absolute/directory docker compose run pipeline
+```
+
+Because the image is published to Docker Hub, you do not need to build it locally.
+
+### Running the complete workflow
+```bash
+docker compose run pipeline
+```
+This executes the full Snakemake workflow using the published Docker image.
+
+### Running a Specific Rule
+Snakemake requires a core count (-c N) for any local execution, including single-rule runs.
+
+Correct usage:
+```bash
+docker compose run pipeline -c 1 transform_rides
+```
+
+## Container Image Provenance
+This workflow is executed using a published Docker image to ensure environment consistency and reproducibility.
+
+Docker Image:
+```
+cp60uiuc/nyc-fhvhv-weather-integration-pipeline:v1
+```
+
+Image Digest:
+```
+sha256:f75d871c95acbe573f3e2b24d60c39bc4e08d446568c8457c076a30f1ddb042b
+```
+
+The digest uniquely identifies the exact image used to run the workflow.
+The `docker-compose.yaml` configuration references this published image so all users run the pipeline in the same environment.
+
+
+## (Optional) Local Development Environment
 
 The project uses [uv](https://docs.astral.sh/uv/) for Python environment management.
 
@@ -99,7 +169,7 @@ This installs all dependencies from pyproject.toml into .venv.
 * Open-Meteo-Requests
 
 
-## Running the Pipeline
+## (Optional) Running the Pipeline Locally
 
 Run the complete workflow:
 
@@ -116,15 +186,3 @@ snakemake -c 2 transform_rides
 ## Configuration
 
 All paths and URLs are defined in config.yaml
-
-
-## Current Status
-
-* Environment and Snakemake workflow established
-* Ride and weather data ingestion complete
-* Transformation and aggregation implemented
-
-## Next Steps
-* Add metadata files describing dataset sources, structure, and variables.
-* Record data provenance to trace how each output was created.
-* Verify data consistency and validate final results.

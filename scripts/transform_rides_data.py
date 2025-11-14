@@ -49,11 +49,10 @@ def main(in_dir: str, zones_lookup: str, out_path: str):
         .sort(["borough", "date", "timestamp_hour"])
     )
 
-    count = agg_rides_with_boroughs.collect().height
-    print(count)
+    result = agg_rides_with_boroughs.collect(engine="streaming")
 
     Path(os.path.dirname(out_path)).mkdir(parents=True, exist_ok=True)
-    agg_rides_with_boroughs.collect(engine="streaming").write_parquet(out_path)
+    result.write_parquet(out_path)
 
 if __name__ == "__main__":
     in_dir, zones_lookup, out_path = sys.argv[1], sys.argv[2], sys.argv[3]
