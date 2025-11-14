@@ -47,15 +47,18 @@ The `data/` directory is not included in this repository because the generated f
 
 
 ## Running the Pipline with Docker Compose
-This project provides a prebuilt Docker image on Docker Hub to ensure reproducibility and provenance across all environments. The included `docker-compose.yaml` runs the workflow using this published image and mounts a host data directory into the container so that all inputs, intermediates, and outputs persist on your machine.
+This project provides a prebuilt Docker image on Docker Hub to ensure reproducibility and provenance across all environments. The included `docker-compose.yaml` runs the workflow using this published image and mounts a host data directory into the container so that all inputs, intermediates, outputs, Snakemake internal state (e.g. Snakemake logs) persist on your machine.
 
-The data directory can be customized at runtime using an environment variable.
+Both the data directory and the Snakemake state directory can be customized at runtime using environment variables.
+
 
 ### Data Directory Selection (Dynamic)
+
 The Compose configuration uses:
 ```yaml
-volumns:
+volumes:
     - ${DATA_DIR:-./data}:/app/data
+    - ${SNAKEMAKE_DIR:-./.snakemake}:/app/.snakemake
 ```
 
 This means:
@@ -72,32 +75,40 @@ Outputs will appear under:
 ./data/
 ```
 
-#### Example: Use a custom data directory
+Snakemake's internal metadata and logs will appear under:
+```bash
+./snakemake/
+```
+
+#### Example: Use custom directories
 **Relative path (recommended):**
 ```bash
-DATA_DIR=./custom_directory docker compose run pipeline
+DATA_DIR=./custom_data \
+SNAKEMAKE_DIR=./.custom_snakemake \
+docker compose run pipeline
 ```
 
 **Absolute paths (supported if Docker has access):**
 ```bash
-DATA_DIR=/valid/absolute/directory docker compose run pipeline
-```
-
-Because the image is published to Docker Hub, you do not need to build it locally.
-
-### Running the complete workflow
-```bash
+DATA_DIR=/valid/absolute/custom_data \
+SNAKEMAKE_DIR=/valid/absolute/.custom_snakemake \
 docker compose run pipeline
 ```
-This executes the full Snakemake workflow using the published Docker image.
 
 ### Running a Specific Rule
-Snakemake requires a core count (-c N) for any local execution, including single-rule runs.
+To run a single Snakemake rule via Docker Compose, you need to pass the core count explicitly.
 
-Correct usage:
+This is because the `docker-compose.yaml` provides a default command (e.g., `["-c", "1"]`), but when you add extra arguments on the CLI, you override that default and must include `-c` yourself.
+
+**Example**:
 ```bash
 docker compose run pipeline -c 1 transform_rides
 ```
+Here:
+* `pipeline` is the docker compose service name
+* `-c 1` tells Snakemake to use 1 core
+* `transform_rides` is the rule to execute
+
 
 ## Container Image Provenance
 This workflow is executed using a published Docker image to ensure environment consistency and reproducibility.

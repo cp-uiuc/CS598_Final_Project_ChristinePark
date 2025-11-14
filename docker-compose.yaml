@@ -4,4 +4,5 @@ services:
     working_dir: /app
     volumes:
       - ${DATA_DIR:-./data}:/app/data
+      - ${SNAKEMAKE_DIR:-./.snakemake}:/app/.snakemake
     command: ["-c", "1"]
