@@ -20,30 +20,46 @@ Step | Snakemake Rule | Script | Description | Primary Data Artifact(s)
 
 ## Project Structure
 ```
+Project layout:
 CS598_Final_Project_ChristinePark/
 ├── Snakefile
 ├── config.yaml
 ├── pyproject.toml
 ├── scripts/
-│   ├── fetch_ride_data.py
-│   ├── compute_zone_coordinates.py
-│   ├── make_zones_lookup.py
-│   ├── transform_rides_data.py
-│   ├── fetch_weather_data.py
-│   └── combine_rides_weather.py
-├── data/           # Not included in repo due to size limits
-│   ├── in/         # Raw inputs (downloaded data)
-│   ├── tmp/        # Intermediate transformations
-│   └── out/        # Final outputs
+│   ├── fetch_ride_data.py           # Download monthly 2023 FHVHV Parquet files
+│   ├── compute_zone_coordinates.py  # Compute borough-level coordinates
+│   ├── make_zones_lookup.py         # Map TLC LocationIDs to boroughs
+│   ├── transform_rides_data.py      # Clean and aggregate rides by borough-hour
+│   ├── fetch_weather_data.py        # Retrieve hourly weather from Open-Meteo
+│   └── combine_rides_weather.py     # Join aggregated rides with hourly weather
+├── data/
+│   ├── in/      # Raw inputs (downloaded data). Not tracked in Git; available via Box link.
+│   ├── tmp/     # Intermediate transformation outputs. Not tracked in Git; available via Box.
+│   └── out/     # Final outputs. Includes citywide_hourly_2023.csv (tracked in Git).
+├── metadata/
+│   ├── dataset.jsonld        # schema.org Dataset metadata
+│   └── data_dictionary.pdf   # Variable definitions and descriptions
 ├── provenance/
-│   ├── dag.png     # Example DAG graph for reference
-│   ├── rules.png   # Example rules graph for reference
+│   ├── dag.png    # Example expanded workflow DAG (for reference)
+│   └── rules.png  # Example rule-level dependency graph (for reference)
 └── README.md
-
 ```
 
-⚠️ **Important Note:**
-The `data/` directory is not included in this repository because the generated files are too large for GitHub. All input, intermediate, and final data outputs are stored in **[Box](https://uofi.box.com/s/2oommk4mla932lrpy89h6rmts1k06zq3)** for validation and comparison. When you run the pipeline locally, these files will be automatically generated in the `data/` directory.
+## Metadata
+The `metadata/` directory provides documentation for the final dataset:
+* `dataset.jsonld` - schema.org JSON-LD describing dataset structure, variables, and workflow
+* `data_dictionary.pdf` - documentation for each variable in the final CSV.
+
+These files describe only the **final dataset** stored in `data/out/`.
+
+
+## Important Note about `data/`
+The `data/in/` and `data/tmp/` directories are not included in this repository because the raw and intermediate files are too large for GitHub. These directories are generated automatically when the Snakemake workflow runs.
+
+For reference and validation, copies of the raw inputs and intermediate outputs are available in Box:
+**[https://uofi.box.com/s/2oommk4mla932lrpy89h6rmts1k06zq3](https://uofi.box.com/s/2oommk4mla932lrpy89h6rmts1k06zq3)**
+
+Only the final outputs in `data/out/` are tracked in this repository.
 
 
 ## Running the Pipline with Docker Compose

@@ -1,0 +1,48 @@
+{
+    "@context": "https://schema.org/",
+    "@type": "Dataset",
+    "name": "NYC FHVHV Weather Integration Pipeline",
+    "description": "Hourly borough-level aggregation of FHVHV ride counts joined with Open-Meteo weather data for 2023.",
+    "creator": {
+      "@type": "Person",
+      "name": "Christine Park",
+      "affiliation": "University of Illinois Urbana-Champaign"
+    },
+    "keywords": [
+      "NYC",
+      "FHVHV",
+      "weather",
+      "urban mobility",
+      "transportation analytics",
+      "2023"
+    ],
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "distribution": {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://raw.githubusercontent.com/cp-uiuc/CS598_Final_Project_ChristinePark/refs/heads/main/data/out/citywide_hourly_2023.csv"
+    },
+    "variableMeasured": [
+      { "@type": "PropertyValue", "name": "borough" },
+      { "@type": "PropertyValue", "name": "date" },
+      { "@type": "PropertyValue", "name": "timestamp_hour" },
+      { "@type": "PropertyValue", "name": "ride_count" },
+      { "@type": "PropertyValue", "name": "temperature_2m" },
+      { "@type": "PropertyValue", "name": "precipitation" },
+      { "@type": "PropertyValue", "name": "snowfall" },
+      { "@type": "PropertyValue", "name": "rain" },
+      { "@type": "PropertyValue", "name": "wind_speed_10m" }
+    ],
+    "measurementTechnique": [
+      "Aggregation of NYC FHVHV trip data by borough and hour",
+      "Integration with hourly weather variables from Open-Meteo",
+      "Computed using a reproducible Snakemake workflow"
+    ],
+    "temporalCoverage": "2023-01-01/2023-12-31",
+    "spatialCoverage": {
+      "@type": "Place",
+      "name": "New York City"
+    },
+    "version": "1.0"
+  }
+  
