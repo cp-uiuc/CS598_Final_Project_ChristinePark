@@ -11,7 +11,8 @@ wheels/
 
 .snakemake
 
-data/*
+data/in/*
+data/tmp/*
 
 .cache.sqlite
 
